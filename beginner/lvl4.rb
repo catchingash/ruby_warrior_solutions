@@ -1,5 +1,7 @@
 # https://www.bloc.io/ruby-warrior/#/warriors/191761/levels/4
-## Still in progress. This seems... terrible.
+# Still in progress. This seems... terrible.
+## Moving along, now. I can come back to this later, if I want to.
+
 
 class Player
 
