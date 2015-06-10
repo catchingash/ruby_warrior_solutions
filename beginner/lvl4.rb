@@ -1,45 +1,50 @@
+# https://www.bloc.io/ruby-warrior/#/warriors/191761/levels/4
+## Still in progress. This seems... terrible.
+
 class Player
 
   def play_turn(warrior)
-    decide_action(warrior)
-    @health = warrior.health
+    @warrior = warrior ## ADDED. BOOM. YAY JEREMY!
+
+    decide_action
+    @health = @warrior.health
   end
 
-  def decide_action(warrior)
+  def decide_action
     @action_used = false
-    rest_if_should(warrior) unless @action_used
-    walk_if_should(warrior) unless @action_used
-    attack_if_should(warrior) unless @action_used
+    rest_if_should unless @action_used
+    walk_if_should unless @action_used
+    attack_if_should unless @action_used
   end
 
-  def attack_if_should(warrior)
-    if !warrior.feel.empty?
-      warrior.attack!
+  def attack_if_should
+    if !@warrior.feel.empty?
+      @warrior.attack!
       @action_used = true
     end
   end
 
-  def taking_damage?(warrior)
-    @health ||= warrior.health
-    @health > warrior.health
+  def taking_damage?
+    @health ||= @warrior.health
+    @health > @warrior.health
   end
 
-  def rest_if_should(warrior)
-    unless enough_health?(warrior) && !taking_damage?(warrior)
-      warrior.rest!
+  def rest_if_should
+    if !full_health? && !taking_damage?
+      @warrior.rest!
       @action_used = true
     end
   end
 
-  def walk_if_should(warrior)
-    unless taking_damage?(warrior) || !warrior.feel.empty?
-      warrior.walk!
+  def walk_if_should
+    if @warrior.feel.empty?
+      @warrior.walk!
       @action_used = true
     end
   end
 
-  def enough_health?(warrior)
-    warrior.health > 10
+  def full_health?
+    @warrior.health == 20
   end
 
 end
